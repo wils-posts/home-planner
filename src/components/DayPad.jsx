@@ -21,7 +21,7 @@ export default function DayPad({ calendarId, selectedDay, session, entries, note
   }
 
   return (
-    <div className="flex flex-col h-full overflow-hidden bg-slate-900 border-t border-slate-700">
+    <div className="flex flex-col h-full overflow-hidden bg-slate-900">
 
       {/* Fixed top: date + colour picker + add form */}
       <div className="shrink-0 px-4 pt-3 pb-2 flex flex-col gap-3">
