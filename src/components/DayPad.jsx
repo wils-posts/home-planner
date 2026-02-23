@@ -57,12 +57,6 @@ export default function DayPad({ calendarId, selectedDay, session, entries, note
         )}
 
         <div className="flex flex-col gap-1.5">
-          <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-500 font-medium uppercase tracking-wide">Notes</span>
-            {notesSaving && (
-              <span className="text-xs text-slate-600">{notesSaving}</span>
-            )}
-          </div>
           <NotesArea
             calendarId={calendarId}
             selectedDay={selectedDay}
