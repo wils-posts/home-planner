@@ -56,7 +56,7 @@ export default function DayPad({ calendarId, selectedDay, session, entries, note
           </div>
         )}
 
-        <div className="flex-1 flex flex-col min-h-0">
+        <div>
           <NotesArea
             calendarId={calendarId}
             selectedDay={selectedDay}
