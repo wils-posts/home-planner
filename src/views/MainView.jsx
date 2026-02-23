@@ -55,7 +55,7 @@ export default function MainView({ calendarId, session, onToast }) {
   }
 
   return (
-    <div className="h-screen overflow-hidden flex flex-col bg-slate-900 text-slate-100 max-w-md mx-auto">
+    <div className="overflow-hidden flex flex-col bg-slate-900 text-slate-100 max-w-md mx-auto" style={{ height: '100dvh' }}>
 
       {/* Top bar */}
       <div className="shrink-0 px-4 pt-3 pb-2 flex items-center justify-between bg-slate-900">
