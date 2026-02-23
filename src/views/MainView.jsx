@@ -82,7 +82,7 @@ export default function MainView({ calendarId, session, onToast }) {
       </div>
 
       {/* Calendar — top ~48%, slightly elevated dark panel */}
-      <div className="h-[48%] overflow-hidden px-2 py-1 bg-slate-800">
+      <div className="h-[48%] overflow-hidden px-2 pb-2 pt-1 bg-slate-800">
         <CalendarGrid
           viewYear={viewYear}
           viewMonth={viewMonth}
