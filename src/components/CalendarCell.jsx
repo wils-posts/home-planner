@@ -1,4 +1,4 @@
-const DOT_COLORS = {
+const BAR_COLORS = {
   blue: 'bg-blue-400',
   green: 'bg-green-400',
   red: 'bg-red-400',
@@ -13,7 +13,7 @@ export default function CalendarCell({ dayStr, dayNum, isCurrentMonth, isToday, 
     <button
       onClick={() => onSelect(dayStr)}
       className={`relative flex flex-col justify-between p-0.5 w-full aspect-square text-left rounded
-        ${!isCurrentMonth ? 'opacity-30' : ''}
+        ${!isCurrentMonth ? 'opacity-25' : ''}
         ${isSelected ? 'bg-white/20' : isToday ? 'ring-1 ring-white/40' : ''}
       `}
     >
@@ -22,14 +22,17 @@ export default function CalendarCell({ dayStr, dayNum, isCurrentMonth, isToday, 
           {dayNum}
         </span>
         {hasNotes && (
-          <span className="text-[10px] leading-none">📝</span>
+          <span className="text-[9px] leading-none opacity-70">📝</span>
         )}
       </div>
-      <div className="flex gap-0.5 pb-0.5">
-        {visibleColors.map(c => (
-          <span key={c} className={`w-1.5 h-1.5 rounded-full ${DOT_COLORS[c]}`} />
-        ))}
-      </div>
+      {/* Colour bars — span the full width, split equally per colour */}
+      {visibleColors.length > 0 && (
+        <div className="flex gap-px w-full">
+          {visibleColors.map(c => (
+            <span key={c} className={`h-1 flex-1 rounded-sm ${BAR_COLORS[c]}`} />
+          ))}
+        </div>
+      )}
     </button>
   )
 }

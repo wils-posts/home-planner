@@ -78,15 +78,15 @@ export default function AddEntryForm({ activeColor, selectedDay, calendarId, use
         </button>
       </div>
 
-      <div className="flex items-center gap-3 text-sm">
-        <label className="flex items-center gap-2 text-gray-400 cursor-pointer">
+      <div className="flex items-center gap-2 text-sm flex-wrap">
+        <label className="flex items-center gap-2 text-gray-400 cursor-pointer shrink-0">
           <input
             type="checkbox"
             checked={repeat}
             onChange={e => setRepeat(e.target.checked)}
             className="accent-gray-400"
           />
-          Repeat weekly
+          Repeat weekly until
         </label>
         {repeat && (
           <input
@@ -94,7 +94,7 @@ export default function AddEntryForm({ activeColor, selectedDay, calendarId, use
             value={untilDate}
             min={selectedDay}
             onChange={e => setUntilDate(e.target.value)}
-            className="bg-gray-800 text-gray-100 rounded px-2 py-1 text-sm outline-none focus:ring-1 focus:ring-gray-500"
+            className="bg-gray-800 text-gray-100 rounded px-2 py-1 text-sm outline-none focus:ring-1 focus:ring-gray-600"
           />
         )}
       </div>

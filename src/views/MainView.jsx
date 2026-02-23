@@ -64,27 +64,38 @@ export default function MainView({ calendarId, session, onToast }) {
 
   return (
     <div className="h-screen overflow-hidden flex flex-col bg-gray-950 text-gray-100 max-w-md mx-auto">
+
       {/* Top bar */}
-      <div className="shrink-0 px-3 py-2 flex items-center justify-between border-b border-gray-800">
-        <span className="font-bold text-base text-gray-100">HomePlanner</span>
-        <div className="flex items-center gap-1">
-          <span className="text-sm text-gray-300 font-medium">{getMonthLabel(viewYear, viewMonth)}</span>
-        </div>
-        <div className="flex items-center gap-1">
+      <div className="shrink-0 px-4 pt-3 pb-2 flex items-center justify-between">
+        {/* Title */}
+        <span className="text-base font-bold tracking-tight text-white w-24">HomePlanner</span>
+
+        {/* Month nav — arrows wrap the month label */}
+        <div className="flex items-center gap-0.5">
           <NavBtn onClick={prevMonth}>‹</NavBtn>
-          <NavBtn onClick={goToToday} small>Today</NavBtn>
-          <NavBtn onClick={nextMonth}>›</NavBtn>
           <button
-            onClick={handleLogout}
-            className="text-xs text-gray-500 px-2 py-1 ml-1"
+            onClick={goToToday}
+            className="text-sm font-semibold text-white px-1 min-w-[128px] text-center"
           >
-            Out
+            {getMonthLabel(viewYear, viewMonth)}
           </button>
+          <NavBtn onClick={nextMonth}>›</NavBtn>
         </div>
+
+        {/* Sign out */}
+        <button
+          onClick={handleLogout}
+          className="text-xs text-gray-600 w-24 text-right"
+        >
+          Sign out
+        </button>
       </div>
 
-      {/* Calendar — top 50% */}
-      <div className="h-[50%] overflow-hidden px-2 py-1">
+      {/* Divider */}
+      <div className="h-px bg-gray-800 shrink-0 mx-3" />
+
+      {/* Calendar — top ~48% */}
+      <div className="h-[48%] overflow-hidden px-2 py-1">
         <CalendarGrid
           viewYear={viewYear}
           viewMonth={viewMonth}
@@ -95,8 +106,8 @@ export default function MainView({ calendarId, session, onToast }) {
         />
       </div>
 
-      {/* Day pad — bottom 50% */}
-      <div className="h-[50%] overflow-hidden">
+      {/* Day pad — bottom ~52% */}
+      <div className="h-[52%] overflow-hidden">
         <DayPad
           calendarId={calendarId}
           selectedDay={selectedDay}
@@ -111,11 +122,11 @@ export default function MainView({ calendarId, session, onToast }) {
   )
 }
 
-function NavBtn({ children, onClick, small }) {
+function NavBtn({ children, onClick }) {
   return (
     <button
       onClick={onClick}
-      className={`text-gray-300 active:text-white px-2 py-1 min-w-[36px] min-h-[36px] flex items-center justify-center ${small ? 'text-xs' : 'text-lg leading-none'}`}
+      className="text-gray-400 active:text-white text-xl leading-none w-9 h-9 flex items-center justify-center"
     >
       {children}
     </button>
