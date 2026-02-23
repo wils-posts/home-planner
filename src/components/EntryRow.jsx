@@ -4,9 +4,9 @@ import ColorPicker from './ColorPicker'
 
 // Pill appearance per colour
 const PILL_STYLES = {
-  blue:  { bg: 'bg-blue-500',  label: 'Me' },
-  green: { bg: 'bg-green-500', label: 'Partner' },
-  red:   { bg: 'bg-red-500',   label: 'Son' },
+  blue:  { bg: 'bg-blue-500',  label: 'C' },
+  green: { bg: 'bg-green-500', label: 'S' },
+  red:   { bg: 'bg-red-500',   label: 'A' },
 }
 
 export default function EntryRow({ entry, selectedDay, onDeleted, onUpdated, onToast }) {
@@ -140,7 +140,7 @@ export default function EntryRow({ entry, selectedDay, onDeleted, onUpdated, onT
   return (
     <div className="flex items-center gap-3 py-2.5 px-1 min-h-[48px]">
       {/* Person pill badge */}
-      <span className={`shrink-0 ${pill.bg} text-white text-xs font-semibold rounded-full px-2.5 py-1 min-w-[52px] text-center`}>
+      <span className={`shrink-0 ${pill.bg} text-white text-sm font-bold rounded-full w-8 h-8 flex items-center justify-center`}>
         {pill.label}
       </span>
       {/* Entry text */}

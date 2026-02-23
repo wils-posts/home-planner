@@ -10,7 +10,7 @@ export default function CalendarGrid({ viewYear, viewMonth, selectedDay, todaySt
     <div className="flex flex-col h-full">
       <div className="grid grid-cols-7 mb-0.5">
         {DAY_HEADERS.map((d, i) => (
-          <div key={i} className="text-center text-xs text-slate-500 py-0.5 font-medium">
+          <div key={i} className="text-center text-xs text-slate-600 py-0.5 font-medium">
             {d}
           </div>
         ))}

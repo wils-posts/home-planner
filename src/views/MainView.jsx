@@ -61,12 +61,12 @@ export default function MainView({ calendarId, session, onToast }) {
       <div className="shrink-0 px-4 pt-3 pb-2 flex items-center justify-between bg-slate-900">
         <span className="text-base font-bold tracking-tight text-white w-24">HomePlanner</span>
 
-        {/* Month nav — arrows flank the month label */}
-        <div className="flex items-center gap-0.5">
+        {/* Month nav — arrows tight around month label */}
+        <div className="flex items-center">
           <NavBtn onClick={prevMonth}>‹</NavBtn>
           <button
             onClick={goToToday}
-            className="text-sm font-semibold text-white px-1 min-w-[128px] text-center"
+            className="text-sm font-semibold text-white px-2 text-center whitespace-nowrap"
           >
             {getMonthLabel(viewYear, viewMonth)}
           </button>
@@ -83,8 +83,8 @@ export default function MainView({ calendarId, session, onToast }) {
 
       <div className="h-px bg-slate-700 shrink-0 mx-3" />
 
-      {/* Calendar — top ~48% */}
-      <div className="h-[48%] overflow-hidden px-2 py-1">
+      {/* Calendar — top ~48%, lighter background */}
+      <div className="h-[48%] overflow-hidden px-2 py-1 bg-slate-300 rounded-b-xl">
         <CalendarGrid
           viewYear={viewYear}
           viewMonth={viewMonth}
