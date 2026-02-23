@@ -75,9 +75,9 @@ export default function MainView({ calendarId, session, onToast }) {
 
         <button
           onClick={handleLogout}
-          className="text-xs text-slate-500 w-24 text-right"
+          className="h-9 px-3 rounded-lg border border-slate-600 text-slate-400 text-sm active:scale-95 transition-transform"
         >
-          Sign out
+          Out
         </button>
       </div>
 
