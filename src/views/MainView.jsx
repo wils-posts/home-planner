@@ -81,8 +81,8 @@ export default function MainView({ calendarId, session, onToast }) {
         </button>
       </div>
 
-      {/* Calendar — top ~48%, slightly elevated dark panel */}
-      <div className="h-[48%] overflow-hidden px-2 pb-2 pt-1 bg-slate-800">
+      {/* Calendar — fixed pixel height, never changes */}
+      <div className="shrink-0 overflow-hidden px-2 pb-2 pt-1 bg-slate-800" style={{ height: '340px' }}>
         <CalendarGrid
           viewYear={viewYear}
           viewMonth={viewMonth}
@@ -93,8 +93,8 @@ export default function MainView({ calendarId, session, onToast }) {
         />
       </div>
 
-      {/* Day pad — bottom ~52% */}
-      <div className="h-[52%] overflow-hidden">
+      {/* Day pad — takes all remaining space */}
+      <div className="flex-1 overflow-hidden">
         <DayPad
           calendarId={calendarId}
           selectedDay={selectedDay}
