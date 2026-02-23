@@ -50,7 +50,7 @@ export default function NotesArea({ calendarId, selectedDay, initialNotes, userI
       onFocus={() => { isFocusedRef.current = true }}
       onBlur={handleBlur}
       placeholder="Notes…"
-      className="w-full flex-1 bg-slate-800 text-white placeholder-slate-500 rounded-lg px-3 py-2.5 text-base outline-none focus:ring-1 focus:ring-slate-500 resize-none min-h-[80px]"
+      className="w-full flex-1 h-full bg-slate-800 text-white placeholder-slate-500 rounded-lg px-3 py-2.5 text-base outline-none focus:ring-1 focus:ring-slate-500 resize-none min-h-[80px]"
     />
   )
 }
