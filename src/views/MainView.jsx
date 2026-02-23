@@ -57,12 +57,12 @@ export default function MainView({ calendarId, session, onToast }) {
   return (
     <div className="overflow-hidden flex flex-col bg-slate-900 text-slate-100 max-w-md mx-auto" style={{ height: '100dvh' }}>
 
-      {/* Top bar */}
-      <div className="shrink-0 px-4 pt-3 pb-2 flex items-center justify-between bg-slate-900">
-        <span className="text-base font-bold tracking-tight text-white w-20">HomePlanner</span>
+      {/* Top bar — 3 col grid keeps month nav perfectly centred */}
+      <div className="shrink-0 px-4 pt-3 pb-2 grid grid-cols-3 items-center bg-slate-900">
+        <span className="text-base font-bold tracking-tight text-white">HomePlanner</span>
 
-        {/* Month nav — arrows tight around month label */}
-        <div className="flex items-center">
+        {/* Month nav — centre column */}
+        <div className="flex items-center justify-center">
           <NavBtn onClick={prevMonth}>‹</NavBtn>
           <button
             onClick={goToToday}
@@ -73,12 +73,22 @@ export default function MainView({ calendarId, session, onToast }) {
           <NavBtn onClick={nextMonth}>›</NavBtn>
         </div>
 
-        <button
-          onClick={handleLogout}
-          className="h-9 px-3 rounded-lg border border-slate-600 text-slate-400 text-sm active:scale-95 transition-transform w-20 text-center"
-        >
-          Out
-        </button>
+        {/* Right col — bell + Out */}
+        <div className="flex items-center gap-2 justify-end">
+          {/* Placeholder — notifications (not yet implemented) */}
+          <button
+            disabled
+            className="h-9 w-9 rounded-lg border border-slate-600 text-slate-400 flex items-center justify-center opacity-50"
+          >
+            🔔
+          </button>
+          <button
+            onClick={handleLogout}
+            className="h-9 px-3 rounded-lg border border-slate-600 text-slate-400 text-sm active:scale-95 transition-transform"
+          >
+            Out
+          </button>
+        </div>
       </div>
 
       {/* Calendar — fixed pixel height, never changes */}
