@@ -14,11 +14,11 @@ export default function CalendarCell({ dayStr, dayNum, isCurrentMonth, isToday, 
       onClick={() => onSelect(dayStr)}
       className={`relative flex flex-col justify-between p-0.5 w-full aspect-square rounded
         ${!isCurrentMonth ? 'opacity-20' : ''}
-        ${isSelected ? 'bg-slate-950 ring-1 ring-slate-500' : isToday ? 'ring-1 ring-slate-400' : ''}
+        ${isSelected ? 'bg-slate-600 ring-1 ring-slate-400' : isToday ? 'ring-1 ring-slate-500' : ''}
       `}
     >
       <div className="flex justify-center w-full">
-        <span className={`text-xs leading-none font-semibold ${isSelected ? 'text-white' : 'text-slate-800'}`}>
+        <span className={`text-xs leading-none font-semibold ${isSelected ? 'text-white' : 'text-slate-100'}`}>
           {dayNum}
         </span>
         {hasNotes && (
