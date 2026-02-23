@@ -3,7 +3,7 @@ import { supabase } from '../supabaseClient'
 
 export function useCalendar(userId) {
   const [calendarId, setCalendarId] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
   useEffect(() => {
@@ -13,10 +13,23 @@ export function useCalendar(userId) {
       setLoading(true)
       setError(null)
 
-      const { data, error } = await supabase
-        .from('calendar_members')
-        .select('calendar_id')
+      // First check the user is in the allowlist
+      const { data: allowed, error: allowedError } = await supabase
+        .from('allowed_users')
+        .select('user_id')
         .eq('user_id', userId)
+        .maybeSingle()
+
+      if (allowedError || !allowed) {
+        setError('no_membership')
+        setLoading(false)
+        return
+      }
+
+      // Fetch the single household calendar
+      const { data, error } = await supabase
+        .from('calendars')
+        .select('id')
         .limit(1)
         .maybeSingle()
 
@@ -25,7 +38,7 @@ export function useCalendar(userId) {
       } else if (!data) {
         setError('no_membership')
       } else {
-        setCalendarId(data.calendar_id)
+        setCalendarId(data.id)
       }
       setLoading(false)
     }
