@@ -150,9 +150,9 @@ export default function EntryRow({ entry, selectedDay, onDeleted, onUpdated, onT
       >
         {entry.text}
       </span>
-      {/* Delete button */}
+      {/* Delete button — instant if no batch, prompt if repeated */}
       <button
-        onClick={() => setDeleteState('confirm')}
+        onClick={() => entry.batch_id ? setDeleteState('confirm') : handleDeleteOne()}
         aria-label="Delete entry"
         className="text-slate-600 active:text-slate-300 text-xl leading-none px-1 min-w-[44px] text-center"
       >
