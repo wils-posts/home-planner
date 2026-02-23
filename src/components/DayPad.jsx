@@ -39,8 +39,8 @@ export default function DayPad({ calendarId, selectedDay, session, entries, note
         />
       </div>
 
-      {/* Scrollable: entries + notes */}
-      <div className="flex-1 overflow-y-auto px-4 pb-4 flex flex-col gap-2 min-h-0">
+      {/* Scrollable: entries only */}
+      <div className="overflow-y-auto px-4 flex flex-col gap-2 min-h-0">
         {entries.length > 0 && (
           <div className="divide-y divide-slate-700/60">
             {entries.map(entry => (
@@ -55,17 +55,18 @@ export default function DayPad({ calendarId, selectedDay, session, entries, note
             ))}
           </div>
         )}
+      </div>
 
-        <div>
-          <NotesArea
-            calendarId={calendarId}
-            selectedDay={selectedDay}
-            initialNotes={notes}
-            userId={session.user.id}
-            onSavingChange={setNotesSaving}
-            onToast={onToast}
-          />
-        </div>
+      {/* Notes — fixed at bottom, never scrolls away */}
+      <div className="shrink-0 px-4 pb-4 pt-2">
+        <NotesArea
+          calendarId={calendarId}
+          selectedDay={selectedDay}
+          initialNotes={notes}
+          userId={session.user.id}
+          onSavingChange={setNotesSaving}
+          onToast={onToast}
+        />
       </div>
     </div>
   )
