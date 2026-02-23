@@ -59,7 +59,7 @@ export default function MainView({ calendarId, session, onToast }) {
 
       {/* Top bar */}
       <div className="shrink-0 px-4 pt-3 pb-2 flex items-center justify-between bg-slate-900">
-        <span className="text-base font-bold tracking-tight text-white w-24">HomePlanner</span>
+        <span className="text-base font-bold tracking-tight text-white w-20">HomePlanner</span>
 
         {/* Month nav — arrows tight around month label */}
         <div className="flex items-center">
@@ -75,7 +75,7 @@ export default function MainView({ calendarId, session, onToast }) {
 
         <button
           onClick={handleLogout}
-          className="h-9 px-3 rounded-lg border border-slate-600 text-slate-400 text-sm active:scale-95 transition-transform"
+          className="h-9 px-3 rounded-lg border border-slate-600 text-slate-400 text-sm active:scale-95 transition-transform w-20 text-center"
         >
           Out
         </button>
