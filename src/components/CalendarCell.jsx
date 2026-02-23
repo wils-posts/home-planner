@@ -12,7 +12,7 @@ export default function CalendarCell({ dayStr, dayNum, isCurrentMonth, isToday, 
   return (
     <button
       onClick={() => onSelect(dayStr)}
-      className={`relative flex flex-col justify-between p-0.5 w-full aspect-square border-r border-b border-slate-600/50
+      className={`relative flex flex-col justify-between p-0.5 w-full h-full border-r border-b border-slate-600/50
         ${isSelected ? 'bg-slate-600' : isToday ? 'bg-slate-700/50' : ''}
       `}
     >
