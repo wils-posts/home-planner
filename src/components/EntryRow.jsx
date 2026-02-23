@@ -120,7 +120,7 @@ export default function EntryRow({ entry, selectedDay, onDeleted, onUpdated, onT
           {entry.batch_id && (
             <button
               onClick={handleDeleteFuture}
-              className="bg-red-800 text-white rounded-lg px-3 py-2 text-sm font-medium active:bg-red-900"
+              className="bg-red-600 text-white rounded-lg px-3 py-2 text-sm font-medium active:bg-red-700"
             >
               This + future
             </button>
