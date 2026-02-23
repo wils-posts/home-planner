@@ -1,6 +1,6 @@
 {
   "name": "HomePlanner",
-  "short_name": "Planner",
+  "short_name": "HomePlanner",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#111827",
