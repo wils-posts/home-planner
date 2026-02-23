@@ -12,7 +12,7 @@ export default function Toast({ message, type = 'error', onDismiss }) {
   const colors = {
     error: 'bg-red-600 text-white',
     success: 'bg-green-600 text-white',
-    info: 'bg-gray-700 text-white',
+    info: 'bg-slate-700 text-white',
   }
 
   return (

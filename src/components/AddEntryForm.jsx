@@ -53,10 +53,6 @@ export default function AddEntryForm({ activeColor, selectedDay, calendarId, use
     setSaving(false)
   }
 
-  function handleKeyDown(e) {
-    if (e.key === 'Enter') submit()
-  }
-
   return (
     <div className="flex flex-col gap-2">
       <div className="flex gap-2">
@@ -64,27 +60,27 @@ export default function AddEntryForm({ activeColor, selectedDay, calendarId, use
           type="text"
           value={text}
           onChange={e => setText(e.target.value)}
-          onKeyDown={handleKeyDown}
+          onKeyDown={e => { if (e.key === 'Enter') submit() }}
           placeholder="Add entry…"
           disabled={saving}
-          className="flex-1 bg-gray-800 text-gray-100 placeholder-gray-500 rounded-lg px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-gray-500 min-w-0"
+          className="flex-1 bg-slate-800 text-white placeholder-slate-500 rounded-lg px-3 py-2.5 text-base outline-none focus:ring-1 focus:ring-slate-500 min-w-0"
         />
         <button
           onClick={submit}
           disabled={saving || !text.trim()}
-          className="bg-gray-700 text-gray-100 rounded-lg px-4 py-2 text-sm font-medium active:bg-gray-600 disabled:opacity-40 shrink-0"
+          className="bg-slate-700 text-white rounded-lg px-4 py-2.5 text-base font-medium active:bg-slate-600 disabled:opacity-40 shrink-0"
         >
           Add
         </button>
       </div>
 
       <div className="flex items-center gap-2 text-sm flex-wrap">
-        <label className="flex items-center gap-2 text-gray-400 cursor-pointer shrink-0">
+        <label className="flex items-center gap-2 text-slate-400 cursor-pointer shrink-0">
           <input
             type="checkbox"
             checked={repeat}
             onChange={e => setRepeat(e.target.checked)}
-            className="accent-gray-400"
+            className="accent-slate-400"
           />
           Repeat weekly until
         </label>
@@ -94,14 +90,12 @@ export default function AddEntryForm({ activeColor, selectedDay, calendarId, use
             value={untilDate}
             min={selectedDay}
             onChange={e => setUntilDate(e.target.value)}
-            className="bg-gray-800 text-gray-100 rounded px-2 py-1 text-sm outline-none focus:ring-1 focus:ring-gray-600"
+            className="bg-slate-800 text-white rounded px-2 py-1 text-sm outline-none focus:ring-1 focus:ring-slate-500"
           />
         )}
       </div>
 
-      {batchMsg && (
-        <p className="text-xs text-gray-400">{batchMsg}</p>
-      )}
+      {batchMsg && <p className="text-xs text-slate-400">{batchMsg}</p>}
     </div>
   )
 }

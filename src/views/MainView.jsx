@@ -34,21 +34,13 @@ export default function MainView({ calendarId, session, onToast }) {
   useRealtime(calendarId, handleRealtimeChange)
 
   function prevMonth() {
-    if (viewMonth === 0) {
-      setViewMonth(11)
-      setViewYear(y => y - 1)
-    } else {
-      setViewMonth(m => m - 1)
-    }
+    if (viewMonth === 0) { setViewMonth(11); setViewYear(y => y - 1) }
+    else setViewMonth(m => m - 1)
   }
 
   function nextMonth() {
-    if (viewMonth === 11) {
-      setViewMonth(0)
-      setViewYear(y => y + 1)
-    } else {
-      setViewMonth(m => m + 1)
-    }
+    if (viewMonth === 11) { setViewMonth(0); setViewYear(y => y + 1) }
+    else setViewMonth(m => m + 1)
   }
 
   function goToToday() {
@@ -63,14 +55,13 @@ export default function MainView({ calendarId, session, onToast }) {
   }
 
   return (
-    <div className="h-screen overflow-hidden flex flex-col bg-gray-950 text-gray-100 max-w-md mx-auto">
+    <div className="h-screen overflow-hidden flex flex-col bg-slate-900 text-slate-100 max-w-md mx-auto">
 
       {/* Top bar */}
-      <div className="shrink-0 px-4 pt-3 pb-2 flex items-center justify-between">
-        {/* Title */}
+      <div className="shrink-0 px-4 pt-3 pb-2 flex items-center justify-between bg-slate-900">
         <span className="text-base font-bold tracking-tight text-white w-24">HomePlanner</span>
 
-        {/* Month nav — arrows wrap the month label */}
+        {/* Month nav — arrows flank the month label */}
         <div className="flex items-center gap-0.5">
           <NavBtn onClick={prevMonth}>‹</NavBtn>
           <button
@@ -82,17 +73,15 @@ export default function MainView({ calendarId, session, onToast }) {
           <NavBtn onClick={nextMonth}>›</NavBtn>
         </div>
 
-        {/* Sign out */}
         <button
           onClick={handleLogout}
-          className="text-xs text-gray-600 w-24 text-right"
+          className="text-xs text-slate-500 w-24 text-right"
         >
           Sign out
         </button>
       </div>
 
-      {/* Divider */}
-      <div className="h-px bg-gray-800 shrink-0 mx-3" />
+      <div className="h-px bg-slate-700 shrink-0 mx-3" />
 
       {/* Calendar — top ~48% */}
       <div className="h-[48%] overflow-hidden px-2 py-1">
@@ -126,7 +115,7 @@ function NavBtn({ children, onClick }) {
   return (
     <button
       onClick={onClick}
-      className="text-gray-400 active:text-white text-xl leading-none w-9 h-9 flex items-center justify-center"
+      className="text-slate-400 active:text-white text-xl leading-none w-9 h-9 flex items-center justify-center"
     >
       {children}
     </button>

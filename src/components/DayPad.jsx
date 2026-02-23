@@ -21,11 +21,11 @@ export default function DayPad({ calendarId, selectedDay, session, entries, note
   }
 
   return (
-    <div className="flex flex-col h-full overflow-hidden bg-gray-900 border-t border-gray-800">
+    <div className="flex flex-col h-full overflow-hidden bg-slate-900 border-t border-slate-700">
 
-      {/* Fixed top section: date + colour picker + add form — never scrolls away */}
+      {/* Fixed top: date + colour picker + add form */}
       <div className="shrink-0 px-4 pt-3 pb-2 flex flex-col gap-3">
-        <h2 className="text-base font-semibold text-gray-100">
+        <h2 className="text-base font-bold text-white">
           {formatDayHeader(selectedDay)}
         </h2>
         <ColorPicker activeColor={activeColor} onChange={handleColorChange} />
@@ -39,14 +39,15 @@ export default function DayPad({ calendarId, selectedDay, session, entries, note
         />
       </div>
 
-      {/* Scrollable lower section: entries + notes */}
+      {/* Scrollable: entries + notes */}
       <div className="flex-1 overflow-y-auto px-4 pb-4 flex flex-col gap-2 min-h-0">
         {entries.length > 0 && (
-          <div className="divide-y divide-gray-800">
+          <div className="divide-y divide-slate-700/60">
             {entries.map(entry => (
               <EntryRow
                 key={entry.id}
                 entry={entry}
+                selectedDay={selectedDay}
                 onDeleted={onRefetch}
                 onUpdated={onRefetch}
                 onToast={onToast}
@@ -57,9 +58,9 @@ export default function DayPad({ calendarId, selectedDay, session, entries, note
 
         <div className="flex flex-col gap-1.5">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-gray-500 font-medium uppercase tracking-wide">Notes</span>
+            <span className="text-xs text-slate-500 font-medium uppercase tracking-wide">Notes</span>
             {notesSaving && (
-              <span className="text-xs text-gray-600">{notesSaving}</span>
+              <span className="text-xs text-slate-600">{notesSaving}</span>
             )}
           </div>
           <NotesArea

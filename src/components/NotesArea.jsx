@@ -6,7 +6,6 @@ export default function NotesArea({ calendarId, selectedDay, initialNotes, userI
   const isFocusedRef = useRef(false)
   const debounceRef = useRef(null)
 
-  // Reset notes when day changes or when a realtime update arrives (only if not focused)
   useEffect(() => {
     if (!isFocusedRef.current) {
       setLocalNotes(initialNotes || '')
@@ -18,13 +17,7 @@ export default function NotesArea({ calendarId, selectedDay, initialNotes, userI
     const { error } = await supabase
       .from('day_notes')
       .upsert(
-        {
-          calendar_id: calendarId,
-          day: selectedDay,
-          notes,
-          updated_by: userId,
-          updated_at: new Date().toISOString(),
-        },
+        { calendar_id: calendarId, day: selectedDay, notes, updated_by: userId, updated_at: new Date().toISOString() },
         { onConflict: 'calendar_id,day' }
       )
     if (error) {
@@ -50,18 +43,14 @@ export default function NotesArea({ calendarId, selectedDay, initialNotes, userI
     save(localNotes)
   }
 
-  function handleFocus() {
-    isFocusedRef.current = true
-  }
-
   return (
     <textarea
       value={localNotes}
       onChange={handleChange}
-      onFocus={handleFocus}
+      onFocus={() => { isFocusedRef.current = true }}
       onBlur={handleBlur}
       placeholder="Notes…"
-      className="w-full flex-1 bg-gray-800 text-gray-100 placeholder-gray-500 rounded-lg px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-gray-500 resize-none min-h-[80px]"
+      className="w-full flex-1 bg-slate-800 text-white placeholder-slate-500 rounded-lg px-3 py-2.5 text-base outline-none focus:ring-1 focus:ring-slate-500 resize-none min-h-[80px]"
     />
   )
 }

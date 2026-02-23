@@ -2,17 +2,22 @@ import { useState } from 'react'
 import { supabase } from '../supabaseClient'
 import ColorPicker from './ColorPicker'
 
-const DOT_COLORS = {
-  blue: 'bg-blue-400',
-  green: 'bg-green-400',
-  red: 'bg-red-400',
+// Pill appearance per colour
+const PILL_STYLES = {
+  blue:  { bg: 'bg-blue-500',  label: 'Me' },
+  green: { bg: 'bg-green-500', label: 'Partner' },
+  red:   { bg: 'bg-red-500',   label: 'Son' },
 }
 
-export default function EntryRow({ entry, onDeleted, onUpdated, onToast }) {
+export default function EntryRow({ entry, selectedDay, onDeleted, onUpdated, onToast }) {
   const [isEditing, setIsEditing] = useState(false)
   const [editText, setEditText] = useState(entry.text)
   const [editColor, setEditColor] = useState(entry.color)
   const [saving, setSaving] = useState(false)
+  // null = no prompt shown, 'confirm' = showing delete options
+  const [deleteState, setDeleteState] = useState(null)
+
+  const pill = PILL_STYLES[entry.color] || { bg: 'bg-slate-500', label: '?' }
 
   async function handleSave() {
     setSaving(true)
@@ -29,15 +34,36 @@ export default function EntryRow({ entry, onDeleted, onUpdated, onToast }) {
     }
   }
 
-  async function handleDelete() {
+  async function handleDeleteOne() {
+    setDeleteState(null)
     const { error } = await supabase
       .from('day_entries')
       .delete()
       .eq('id', entry.id)
     if (error) {
-      onToast({ message: "Couldn't save — please try again", type: 'error' })
+      onToast({ message: "Couldn't delete — please try again", type: 'error' })
     } else {
       onDeleted()
+    }
+  }
+
+  async function handleDeleteFuture() {
+    setDeleteState(null)
+    // Delete this entry + all future entries in the same batch from selectedDay onwards
+    if (entry.batch_id) {
+      const { error } = await supabase
+        .from('day_entries')
+        .delete()
+        .eq('batch_id', entry.batch_id)
+        .gte('day', selectedDay)
+      if (error) {
+        onToast({ message: "Couldn't delete — please try again", type: 'error' })
+      } else {
+        onDeleted()
+      }
+    } else {
+      // No batch — just delete the one
+      handleDeleteOne()
     }
   }
 
@@ -47,29 +73,30 @@ export default function EntryRow({ entry, onDeleted, onUpdated, onToast }) {
     setIsEditing(false)
   }
 
+  // Edit mode
   if (isEditing) {
     return (
-      <div className="flex flex-col gap-2 bg-gray-800 rounded-lg p-3">
+      <div className="flex flex-col gap-2 bg-slate-800 rounded-lg p-3 my-1">
         <input
           type="text"
           value={editText}
           onChange={e => setEditText(e.target.value)}
           onKeyDown={e => { if (e.key === 'Enter') handleSave() }}
           autoFocus
-          className="bg-gray-700 text-gray-100 rounded px-3 py-1.5 text-sm outline-none focus:ring-1 focus:ring-gray-500"
+          className="bg-slate-700 text-white rounded-lg px-3 py-2 text-base outline-none focus:ring-1 focus:ring-slate-500"
         />
         <ColorPicker activeColor={editColor} onChange={setEditColor} />
         <div className="flex gap-2">
           <button
             onClick={handleSave}
             disabled={saving}
-            className="bg-gray-600 text-white rounded px-3 py-1.5 text-sm font-medium active:bg-gray-500 disabled:opacity-40"
+            className="bg-slate-600 text-white rounded-lg px-4 py-2 text-sm font-medium active:bg-slate-500 disabled:opacity-40"
           >
             Save
           </button>
           <button
             onClick={handleCancel}
-            className="text-gray-400 text-sm px-3 py-1.5"
+            className="text-slate-400 text-sm px-3 py-2"
           >
             Cancel
           </button>
@@ -78,19 +105,56 @@ export default function EntryRow({ entry, onDeleted, onUpdated, onToast }) {
     )
   }
 
+  // Delete confirmation prompt
+  if (deleteState === 'confirm') {
+    return (
+      <div className="flex flex-col gap-2 py-2.5 px-1">
+        <p className="text-sm text-slate-300 font-medium">Delete "{entry.text}"?</p>
+        <div className="flex gap-2 flex-wrap">
+          <button
+            onClick={handleDeleteOne}
+            className="bg-red-600 text-white rounded-lg px-3 py-2 text-sm font-medium active:bg-red-700"
+          >
+            Just this one
+          </button>
+          {entry.batch_id && (
+            <button
+              onClick={handleDeleteFuture}
+              className="bg-red-800 text-white rounded-lg px-3 py-2 text-sm font-medium active:bg-red-900"
+            >
+              This + future
+            </button>
+          )}
+          <button
+            onClick={() => setDeleteState(null)}
+            className="text-slate-400 text-sm px-3 py-2"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  // Normal display
   return (
-    <div className="flex items-center gap-2 py-2 px-1 min-h-[44px]">
-      <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${DOT_COLORS[entry.color] || 'bg-gray-400'}`} />
+    <div className="flex items-center gap-3 py-2.5 px-1 min-h-[48px]">
+      {/* Person pill badge */}
+      <span className={`shrink-0 ${pill.bg} text-white text-xs font-semibold rounded-full px-2.5 py-1 min-w-[52px] text-center`}>
+        {pill.label}
+      </span>
+      {/* Entry text */}
       <span
-        className="flex-1 text-sm text-gray-100 cursor-pointer"
+        className="flex-1 text-base text-slate-100 font-medium cursor-pointer"
         onClick={() => setIsEditing(true)}
       >
         {entry.text}
       </span>
+      {/* Delete button */}
       <button
-        onClick={handleDelete}
+        onClick={() => setDeleteState('confirm')}
         aria-label="Delete entry"
-        className="text-gray-500 hover:text-gray-300 text-lg leading-none px-1 min-w-[44px] text-center"
+        className="text-slate-600 active:text-slate-300 text-xl leading-none px-1 min-w-[44px] text-center"
       >
         ×
       </button>

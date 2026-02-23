@@ -14,8 +14,8 @@ export default function ColorPicker({ activeColor, onChange }) {
           onClick={() => onChange(id)}
           className={`w-9 h-9 rounded-full ${bg} transition-all ${
             activeColor === id
-              ? `ring-2 ring-offset-2 ring-offset-gray-900 ${ring} scale-110`
-              : 'opacity-50'
+              ? `ring-2 ring-offset-2 ring-offset-slate-900 ${ring} scale-110`
+              : 'opacity-40'
           }`}
         />
       ))}
